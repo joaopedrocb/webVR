@@ -1,0 +1,140 @@
+<html>
+    <head>
+        <!-- Dependencies -->
+        <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+        <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script> 
+
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>Elenmeyer Test </title>
+        
+
+        <script>
+            var prevData = "clip: apertar; crossFadeDuration: 1";
+            var listenerAdded = false;
+            var scene = document.querySelector('a-scene');
+            var playOnce = false;
+
+            AFRAME.registerComponent('animation-control', {
+                schema: {default: ''},
+                init() {
+                    const elenmeyer = document.querySelector('#elenmeyer');
+                    var apertarButton = document.querySelector('#apertar');
+                    var derramarButton = document.querySelector('#derramar');
+                    var scene = document.querySelector('a-scene');
+
+
+                    this.el.addEventListener('click', () => {
+                        if (this.el != apertarButton) {
+                            elenmeyer.setAttribute('animation-mixer', this.data);
+                            scene.removeEventListener('animation-loop', rotateTransformation);
+                            prevData = this.data;
+                        }
+
+                        if (this.el == apertarButton) {
+                            elenmeyer.setAttribute('animation-mixer', this.data);
+                            var rotateTransformation = function() {
+                                scene.removeEventListener('animation-loop', rotateTransformation);
+                                elenmeyer.setAttribute('animation-mixer', prevData);
+                            }
+                            setTimeout( function() {
+                                scene.addEventListener('animation-loop', rotateTransformation);
+                            }, 500);
+                        }
+                    });
+                }
+            });
+        </script>
+    </head>
+    
+    <body>
+        <a-scene loading-screen="dotsColor: white; backgroundColor: blue" stats>
+            <a-assets>                   
+                <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
+                <a-asset-item id="modelo3D" src="assets/models/Elenmeyer/elemeyer-dropper.gltf"></a-asset-item>
+                <a-asset-item id="dawningFont" src="assets/font/dawningOfANewDayRegular.typeface.json"></a-asset-item>
+                <a-asset-item id="exoFont" src="assets/font/exo2Black.typeface.json"></a-asset-item>
+                <a-asset-item id="exoItalicFont" src="assets/font/Fexo2BlackItalic.typeface.json"></a-asset-item>
+            </a-assets>
+            
+            <a-sky color="purple"></a-sky>
+            
+            
+            <a-entity 
+                id="elenmeyer"
+                cursor-listener
+                position="0 1 -2.5"
+                rotation="0 45 0"
+                scale=".5 .5 .5"
+                response-type="arraybuffer"
+                animation-mixer="clip: easing"
+                gltf-model="#modelo3D"
+                >
+            </a-entity>
+            
+            <a-camera position="0 2 4">
+                <a-entity 
+                    raycaster="objects: .clickable"
+                    cursor="fuse: true; fuseTimeout: 500"
+                    position="0 0 -1"
+                    geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.019;"
+                    material="color: green; shader: flat"
+                >    
+                    <a-animation 
+                        begin="click" 
+                        easing="ease-in" 
+                        attribute="scale"
+                        fill="backwards" 
+                        from="0.1 0.1 0.1" to="1 1 1"
+                    >
+                    </a-animation>
+                    <a-animation 
+                        begin="cursor-fusing" 
+                        easing="ease-in" 
+                        attribute="scale"
+                        fill="forwards" 
+                        from="1 1 1" to="0.1 0.1 0.1"
+                    >
+                    </a-animation>
+                </a-entity>
+            </a-camera>
+
+            <a-sky color="grey"></a-sky>
+            
+            <a-entity position="-4 1 -6" rotation="5 0 0">
+                <a-entity
+                    rotation="0 0 0"
+                    position="-5 8 0"
+                    text-geometry="value: NOVIDADES EM BREVE; font:#exoItalicFont; bevelEnabled: true; bevelSize: 0.05; bevelThickness: 0.05; curveSegments: 12; size: 1.2; height: 0;"
+                    material="color:lavenderblush; metalness:1; roughness: 0; sphericalEnvMap: #pink;"
+                >
+                </a-entity>
+
+                <a-entity 
+                    id="apertar" 
+                    class="clickable" 
+                    animation-control="clip: apertar; crossFadeDuration: .3; easing: easeInOutQuad; delay: .3;loop: pingpong"
+                    position="1 3 4"
+                    rotation="0 0 0"
+                    scale="0.5 .6.3"
+                    text-geometry="value: APERTAR; font: #exoFont" 
+                    material="color: blue; metalness: .5; roughness: .5"
+                >
+                </a-entity>
+
+                <a-entity
+                    id="derramar"
+                    class="clickable"
+                    animation-control="clip: derramar;crossFadeDuration: .3; easing: easeInOutQuad; delay: .3;loop: pingpong"
+                    position="6 3 4"
+                    rotation="0 0 0"
+                    scale="0.5 .6.3"
+                    text-geometry="value: DERRAMAR; font: #exoFont"
+                    material="color: blue; metalness: .5; roughness: .5 "
+                >
+                </a-entity>
+            </a-entity>
+        </a-scene>
+
+    </body>
+</html>
