@@ -19,19 +19,19 @@
                 schema: {default: ''},
                 init() {
                     const elenmeyer = document.querySelector('#elenmeyer');
-                    var apertarButton = document.querySelector('#apertar');
-                    var derramarButton = document.querySelector('#derramar');
+                    var ApertarButton = document.querySelector('#Apertar');
+                    var DerramarButton = document.querySelector('#Derramar');
                     var scene = document.querySelector('a-scene');
 
 
                     this.el.addEventListener('click', () => {
-                        if (this.el != apertarButton) {
+                        if (this.el != ApertarButton) {
                             elenmeyer.setAttribute('animation-mixer', this.data);
                             scene.removeEventListener('animation-loop', rotateTransformation);
                             prevData = this.data;
                         }
 
-                        if (this.el == apertarButton) {
+                        if (this.el == ApertarButton) {
                             elenmeyer.setAttribute('animation-mixer', this.data);
                             var rotateTransformation = function() {
                                 scene.removeEventListener('animation-loop', rotateTransformation);
@@ -111,9 +111,9 @@
                 </a-entity>
 
                 <a-entity 
-                    id="apertar" 
+                    id="Apertar" 
                     class="clickable" 
-                    animation-control="clip: apertar; crossFadeDuration: .3; easing: easeInOutQuad; delay: .3;loop: pingpong"
+                    animation-control="clip: Apertar; crossFadeDuration: .3; easing: easeInOutQuad; delay: .3;loop: pingpong"
                     position="1 3 4"
                     rotation="0 0 0"
                     scale="0.5 .6.3"
@@ -123,9 +123,9 @@
                 </a-entity>
 
                 <a-entity
-                    id="derramar"
+                    id="Derramar"
                     class="clickable"
-                    animation-control="clip: derramar;crossFadeDuration: .3; easing: easeInOutQuad; delay: .3;loop: pingpong"
+                    animation-control="clip: Derramar;crossFadeDuration: .3; easing: easeInOutQuad; delay: .3;loop: pingpong"
                     position="6 3 4"
                     rotation="0 0 0"
                     scale="0.5 .6.3"
