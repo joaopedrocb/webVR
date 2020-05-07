@@ -3,14 +3,17 @@
         <!-- Dependencies -->
         <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
-        <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script> 
+        <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+
+        
 
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <title>Elenmeyer Test </title>
         
 
         <script>
-            var prevData = "clip: apertar; crossFadeDuration: 1";
+            var prevData = "clip: Apertar; crossFadeDuration: 1";
             var listenerAdded = false;
             var scene = document.querySelector('a-scene');
             var playOnce = false;
@@ -55,11 +58,10 @@
                 <a-asset-item id="dawningFont" src="assets/font/dawningOfANewDayRegular.typeface.json"></a-asset-item>
                 <a-asset-item id="exoFont" src="assets/font/exo2Black.typeface.json"></a-asset-item>
                 <a-asset-item id="exoItalicFont" src="assets/font/Fexo2BlackItalic.typeface.json"></a-asset-item>
+
+                
             </a-assets>
-            
-            <a-sky color="purple"></a-sky>
-            
-            
+                   
             <a-entity 
                 id="elenmeyer"
                 cursor-listener
@@ -67,8 +69,10 @@
                 rotation="0 45 0"
                 scale=".5 .5 .5"
                 response-type="arraybuffer"
-                animation-mixer="clip: easing"
+                animation-mixer="clip:easing"
                 gltf-model="#modelo3D"
+                material="color: blue"
+                color="blue"
                 >
             </a-entity>
             
@@ -99,7 +103,6 @@
                 </a-entity>
             </a-camera>
 
-            <a-sky color="grey"></a-sky>
             
             <a-entity position="-4 1 -6" rotation="5 0 0">
                 <a-entity
@@ -118,7 +121,11 @@
                     rotation="0 0 0"
                     scale="0.5 .6.3"
                     text-geometry="value: APERTAR; font: #exoFont" 
-                    material="color: blue; metalness: .5; roughness: .5"
+                    material="color:#002BFF; metalness: .5; roughness: .5"
+                    event-set__enter="_event: mouseenter; material.color:#5AA2FE"
+                    event-set__leave="_event: mouseleave; material.color:#002BFF"
+                    event-set__color="_event: click; _target: #BoxApertar; material.color: #73FF4D;"
+                    
                 >
                 </a-entity>
 
@@ -130,9 +137,100 @@
                     rotation="0 0 0"
                     scale="0.5 .6.3"
                     text-geometry="value: DERRAMAR; font: #exoFont"
+                    material="color: blue; metalness: .5; roughness: .5"
+                    event-set__enter="_event: mouseenter; material.color:#5AA2FE"
+                    event-set__leave="_event: mouseleave; material.color:#002BFF"
+                    event-set__color="_event: click; _target: #BoxDerramar; material.color: #73FF4D;"
+                >
+                </a-entity>
+                
+                <a-entity
+                    id="Idle"
+                    class="clickable"
+                    animation-control="clip: Idle;crossFadeDuration: .3; easing: easeInOutQuad; delay: .3;"
+                    position="3.6 -1 4"
+                    rotation="0 0 0"
+                    scale="0.5 .6.3"
+                    text-geometry="value: IDLE; font: #exoFont"
+                    material="color: blue; metalness: .5; roughness: .5"
+                    event-set__enter="_event: mouseenter; material.color:#5AA2FE"
+                    event-set__leave="_event: mouseleave; material.color:#002BFF"
+                    event-set__color="_event: click; _target: #BoxIdle; material.color: #73FF4D;"
+                >
+                </a-entity>
+                
+                <a-entity
+                    id="CorVermelho"
+                    class="clickable"
+                    position="12 6 4"
+                    rotation="0 0 0"
+                    scale="0.5 .6.3"
+                    text-geometry="value: VERMELHO; font: #exoFont"
+                    material="color: red; metalness: .5; roughness: .5"
+                >
+                </a-entity>
+                
+                <a-entity
+                    id="CorVerde"
+                    class="clickable"
+                    position="12 4 4"
+                    rotation="0 0 0"
+                    scale="0.5 .6.3"
+                    text-geometry="value: VERDE; font: #exoFont"
+                    material="color: green; metalness: .5; roughness: .5 "
+                >
+                </a-entity>
+                
+                <a-entity
+                    id="CorAzul"
+                    class="clickable"
+                    position="12 2 4"
+                    rotation="0 0 0"
+                    scale="0.5 .6.3"
+                    text-geometry="value: AZUL; font: #exoFont"
                     material="color: blue; metalness: .5; roughness: .5 "
                 >
                 </a-entity>
+                
+                <a-box color="red"
+                       id="BoxApertar"
+                       position="0 -2 4"
+                       depth="0.1"
+                       width="0.5"
+                       height="0.5"
+                       >
+                </a-box>
+                <a-box color="red"
+                       id="BoxDerramar"
+                       position="1 -2 4"
+                       depth="0.1"
+                       width="0.5"
+                       height="0.5"
+                       >
+                </a-box>
+                <a-box color="red"
+                       id="BoxIdle"
+                       position="2 -2 4"
+                       depth="0.1"
+                       width="0.5"
+                       height="0.5"
+                       >
+                 
+<a-entity
+                    id="reset"
+                    class="clickable"
+                    position="-4 -0.3 0"
+                    rotation="0 0 0"
+                    scale="0.5 .6.3"
+                    text-geometry="value: RESET; font: #exoFont"
+                    material="color: blue; metalness: .5; roughness: .5"
+                    event-set__colorApertar="_event: click; _target: #BoxApertar; material.color: #FF0000;"
+                    event-set__colorDerramar="_event: click; _target: #BoxDerramar; material.color: #FF0000;"
+                    event-set__colorIdle="_event: click; _target: #BoxIdle; material.color: #FF0000;"
+                >
+                </a-entity>
+                    
+                </a-box>
             </a-entity>
         </a-scene>
 
