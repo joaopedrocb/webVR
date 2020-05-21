@@ -60,11 +60,11 @@
                 <a-asset-item id="modelo3D" src="assets/models/Elenmeyer/elemeyer-dropper.gltf"></a-asset-item>
                 <a-asset-item id="dawningFont" src="assets/font/dawningOfANewDayRegular.typeface.json"></a-asset-item>
                 <a-asset-item id="exoFont" src="assets/font/exo2Black.typeface.json"></a-asset-item>
-                <a-asset-item id="exoItalicFont" src="assets/font/Fexo2BlackItalic.typeface.json"></a-asset-item><a-asset-item id="blink" src="assets/images/FundoPreto.jpg"></a-asset-item>
-
+                <a-asset-item id="exoItalicFont" src="assets/font/Fexo2BlackItalic.typeface.json"></a-asset-item>
+                <a-asset-item id="blink" src="assets/images/FundoPreto.jpg"></a-asset-item>
                 
             </a-assets>
-                   
+                               
             <a-entity 
                 id="elenmeyer"
                 cursor-listener
@@ -201,7 +201,7 @@
                        depth="0.1"
                        width="0.5"
                        height="0.5"
-                       >
+                >
                 </a-box>
                 <a-box color="red"
                        id="BoxDerramar"
@@ -209,7 +209,7 @@
                        depth="0.1"
                        width="0.5"
                        height="0.5"
-                       >
+                >
                 </a-box>
                 <a-box color="red"
                        id="BoxIdle"
@@ -217,7 +217,7 @@
                        depth="0.1"
                        width="0.5"
                        height="0.5"
-                       >
+                >
                 </a-box>
                  
                 <a-entity
@@ -234,7 +234,19 @@
                 >
                 </a-entity>   
             </a-entity>
-        </a-scene>
+            
+            <a-sky color="#B3FBA9"
+            >
+            </a-sky>
+            
+            <a-entity 
+                id="ground"
+                geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
+                material="color: #7A7A7A; repeat: 10000 10000; transparent: true;metalness:0.6; roughness: 0.4;"
+                position="0 -2 0"
+            >
+            </a-entity>
 
+        </a-scene>
     </body>
 </html>
